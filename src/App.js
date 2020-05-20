@@ -32,35 +32,26 @@ export default function App() {
 
   return (
     <>
-      <StatusBar barStyle="light-content" backgroundColor="#7159c1" />
+      <StatusBar barStyle="light-content" />
       <SafeAreaView style={styles.container}>
         <FlatList 
         style={styles.repositoryContainer}
         data={repositories}
         keyExtractor={repository => repository.id}
-        renderItem={({ item }) => (
+        renderItem={({ item: repository }) => (
           <>
-            <Text style={styles.repository}>{item.title}</Text>
+            <Text style={styles.repository}>{repository.title}</Text>
               <View style={styles.techsContainer}>
-                <Text style={styles.tech}>{item.techs}</Text>
+                <Text style={styles.tech}>{repository.techs}</Text>
               </View>
 
             <View style={styles.likesContainer}>
-              <Text
-                style={styles.likeText}
-                testID={`repository-likes-${item.id}`}
-                key={`repository-likes-${item.id}`}
-              >
-                {item.likes} curtidas
+              <Text style={styles.likeText}>
+                {repository.likes} curtidas
               </Text>
             </View>
 
-            <TouchableOpacity
-              style={styles.button}
-              onPress={() => handleLikeRepository(item.id)}
-              testID={`like-button-${item.id}`}
-              key={`like-button-${item.id}`}
-            >
+            <TouchableOpacity style={styles.button} onPress={() => handleLikeRepository(repository.id)}>
               <Text style={styles.buttonText}>Curtir</Text>
             </TouchableOpacity>
           </>
@@ -110,6 +101,7 @@ const styles = StyleSheet.create({
   },
   button: {
     marginTop: 10,
+    
 
   },
   buttonText: {
